@@ -26,7 +26,7 @@ two/
 two/two.jsonnet
 ```
 
-If `one` requires `two`, you can use the command to build and pass the '-S' flag
+If `one` requires `two`, you can use the command to build and pass the `-S` flag
 
 ```
 docker run --rm -it -v $(pwd):/src -e BASEDIR=one/ syseleven/jsonnet-builder -S one.jsonnet
