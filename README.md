@@ -26,10 +26,10 @@ two/
 two/two.jsonnet
 ```
 
-If `one` requires `two`, you can use the command
+If `one` requires `two`, you can use the command to build and pass the '-S' flag
 
 ```
-docker run --rm -it -v $(pwd):/src -e BASEDIR=one/ syseleven/jsonnet-builder '-S "one.jsonnet"'
+docker run --rm -it -v $(pwd):/src -e BASEDIR=one/ syseleven/jsonnet-builder -S one.jsonnet
 ```
 
 All entrypoint commands (jb and jsonnet) will be relative to `/src/${BASEDIR}`
