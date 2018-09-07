@@ -1,21 +1,24 @@
 # Introduction
 
-Simple dockerfile to intall jsonnet-bundler (jb) and go-jsonnet into a runnable
-container.
+Simple dockerfile to install [jsonnet-bundler](https://github.com/jsonnet-bundler/jsonnet-bundler)
+and [go-jsonnet](https://github.com/google/go-jsonnet) into a runnable container.
 
 # Usage
-You need to mount the to-be-build directory to `/src` in the container. Existing
-jsonnetfile.json dependencies will be installed and the jsonnet compiled. You
-can pass extra arguments to the jsonnet:
+You need to mount the jsonnet files to `/src` in the container. Existing
+`jsonnetfile.json` dependencies will be installed and the jsonnet compiled. You
+can pass extra arguments to jsonnet:
 
 ```
 docker run --rm -it -v $(pwd):/src syseleven/jsonnet-builder ${ARGS}
 ```
 
-## Change jsonnet basedir
-If you require modules in another folder, you can mount both into /src and
-specify the basedir for your jsonnet build. Assuming you have the following
-structure:
+If the `jsonnetfile.json` file is not directly located in the mounted folder
+you can change the basedir with the BASEDIR argument.  All entrypoint commands
+(jb and jsonnet) will be relative to `/src/${BASEDIR}` (or `${BASEDIR}` if
+specified as absolute path).
+
+# Example
+Assuming you have the following structure
 
 ```
 $ find .
@@ -26,11 +29,9 @@ two/
 two/two.jsonnet
 ```
 
-If `one` requires `two`, you can use the command to build and pass the `-S` flag
+If `one.jsonnet` imports `../two/two.jsonnet` and you want to pass the `-S`
+flag to the build, you can use the command
 
 ```
 docker run --rm -it -v $(pwd):/src -e BASEDIR=one/ syseleven/jsonnet-builder -S one.jsonnet
 ```
-
-All entrypoint commands (jb and jsonnet) will be relative to `/src/${BASEDIR}`
-(or `${BASEDIR}` if specified as absolute path).
