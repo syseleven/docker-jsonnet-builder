@@ -7,12 +7,12 @@ RUN apk -U add git && \
 FROM alpine:latest
 LABEL Author="c.beneke@syseleven.de" \
       Description="Simple Docker image to build configurations with go-jsonnet."
+RUN apk -U add git
 
 COPY --from=builder /go/bin/jb /usr/local/bin/
 COPY --from=builder /go/bin/jsonnet /usr/local/bin/
 COPY ./entrypoint.sh /
-RUN apk -U add git && \
-    chmod a+x /usr/local/bin/jb /usr/local/bin/jsonnet /entrypoint.sh
+RUN chmod a+x /usr/local/bin/jb /usr/local/bin/jsonnet /entrypoint.sh
 
 VOLUME /src
 WORKDIR /src
