@@ -1,4 +1,4 @@
-FROM golang:1.11-alpine AS builder
+FROM golang:1.13-alpine AS builder
 RUN apk -U add git && \
     go get -v github.com/jsonnet-bundler/jsonnet-bundler/cmd/jb && \
     go get -v github.com/google/go-jsonnet/jsonnet
