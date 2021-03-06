@@ -4,15 +4,12 @@ RUN apk -U add git && \
 
 ########
 FROM alpine:latest
-LABEL Author="c.beneke@syseleven.de" \
+LABEL Author="s.nazir@syseleven.de" \
       Description="Simple Docker image to build configurations with go-jsonnet."
-RUN apk -U add git && \
-    wget https://github.com/jsonnet-bundler/jsonnet-bundler/releases/download/v0.4.0/jb-linux-amd64 && \
-    mv jb-linux-amd64 /usr/local/bin/jb
 
 COPY --from=builder /go/bin/jsonnet /usr/local/bin/
 COPY ./entrypoint.sh /
-RUN chmod a+x /usr/local/bin/jb /usr/local/bin/jsonnet /entrypoint.sh
+RUN chmod a+x /usr/local/bin/jsonnet /entrypoint.sh
 
 VOLUME /src
 WORKDIR /src
