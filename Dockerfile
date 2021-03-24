@@ -1,6 +1,8 @@
 FROM golang:1.13-alpine AS builder
+
+ENV GO111MODULE=on
 RUN apk -U add git && \
-    go get -v github.com/jsonnet-bundler/jsonnet-bundler/cmd/jb && \
+    go get -v github.com/jsonnet-bundler/jsonnet-bundler/cmd/jb@v0.4.0 && \
     go get -v github.com/google/go-jsonnet/cmd/jsonnet
 
 ########
